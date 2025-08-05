@@ -7,7 +7,9 @@ import errorHandler from './middleware/errorHandler.js'
 
 // * Routers
 
-import tracksRouter from './controllers/tracks.js'
+import { tracksRouter } from './controllers/tracks.js'
+import { userRouter } from './controllers/user.js'
+
 
 const app = express()
 const port = process.env.PORT || 3000
@@ -21,6 +23,7 @@ app.use(cors())
 // * Routes
 
 app.use('/api/tracks', tracksRouter)
+app.use('/api/auth', userRouter)
 
 // * Errors
 app.use(errorHandler) 

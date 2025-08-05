@@ -9,3 +9,12 @@ export class NotFound extends Error {
             this.status = 404 // added for 404 not found errors
     }
 }
+
+export class InvalidData extends Error {
+    constructor(message, field) {
+            super(message) // included in the native Error class
+            this.name = 'InvalidData' 
+            this.status = 400
+            this.field = field
+    }
+}

@@ -74,4 +74,4 @@ router.delete('/:trackId', async (req, res) => {
 
 
 
-export default router
+export { router as tracksRouter }
