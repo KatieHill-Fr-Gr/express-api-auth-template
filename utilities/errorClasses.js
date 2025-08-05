@@ -18,3 +18,11 @@ export class InvalidData extends Error {
             this.field = field
     }
 }
+
+export class Unauthorized extends Error {
+    constructor(message, field) {
+            super(message) 
+            this.name = 'Unauthorized' 
+            this.status = 401
+    }
+}

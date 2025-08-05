@@ -46,6 +46,21 @@ const errorHandler = (err, req, res, next) => {
 
     // Log out the error object to get the info you need (you'll see properties, message, etc.)
 
+    // Unique constraint
+    if (err.name === 'MongoServerError' && err.code === 11000) {
+        console.log(Object.entries(err.keyValue) [0]) // the first array in the array - we can always find the key and the value in this way
+        const [keyName, keyValue] = Object.keys(err.keyValue)[0]
+        return res.status(400).json({
+            [keyName]: `${keyName}[0].toUpperCase() + keyName.slice?(1)} "${keyValue}" This email is already taken` 
+        })
+    }
+
+    // It only checks one index at a time. It converts the field values into an array of arrays so you can iterate through it and slice
+
+    // Unauthorized
+    if (err.name === 'Unauthorized') {
+        return res.status(401).json('Unauthorized access')
+    }
 
 
 
