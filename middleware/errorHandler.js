@@ -22,14 +22,12 @@ const errorHandler = (err, req, res, next) => {
 
     // Validation Errors
 
-    // Specific to a particular error/field
-    // if (err.name === 'InvalidData') {
-    //     return res.status(err.status).json({ [err.field]: err.message })
-    // }
+    // Custom validation error - specific to a particular error/field
+    if (err.name === 'InvalidData') {
+        return res.status(err.status).json({ [err.field]: err.message })
+    }
 
-    // To catch all possible validation errors
-
-
+    // Mongoose validaiton error - to catch all possible validation errors
     if (err.name === 'ValidationError') {
         const fields = {}
 

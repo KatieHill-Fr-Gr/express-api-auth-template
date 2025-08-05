@@ -4,6 +4,7 @@ import cors from 'cors'
 import mongoose from 'mongoose'
 import 'dotenv/config'
 import errorHandler from './middleware/errorHandler.js'
+import verifyToken from './middleware/verifyToken.js'
 
 // * Routers
 
@@ -24,6 +25,12 @@ app.use(cors())
 
 app.use('/api/tracks', tracksRouter)
 app.use('/api/auth', userRouter)
+
+// * Protected routes
+app.get('/protected-route', verifyToken, (req, res, next) => {
+    console.log(req.user)
+    return res.json({ message: "Hit protected route"})
+})
 
 // * Errors
 app.use(errorHandler) 

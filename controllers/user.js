@@ -2,7 +2,6 @@ import express from 'express'
 import User from '../models/user.js'
 import { InvalidData } from '../utilities/errorClasses.js'
 import { Unauthorized } from '../utilities/errorClasses.js'
-import { NotFound } from '../utilities/errorClasses.js'
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
 
@@ -64,7 +63,7 @@ router.post('/sign-in', async (req, res, next) => {
 
         if (!bcrypt.compareSync(password, foundUser.password)) throw new Unauthorized('Password not recognized')
 
-        // Generate the token: it has to be identical to sign up 
+        // Generate the token: it has to be identical to sign up but with founder user this time 
 
         const token = jwt.sign(
             {
@@ -78,7 +77,7 @@ router.post('/sign-in', async (req, res, next) => {
         )
 
         // Response
-        return res.status(201).json({ token: token })
+        return res.status(201).json({ token: token }) // sends the token back to the client 
 
 
     } catch (error) {
