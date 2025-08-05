@@ -23,14 +23,16 @@ app.use(cors())
 
 // * Routes
 
-app.use('/api/tracks', tracksRouter)
-app.use('/api/auth', userRouter)
-
-// * Protected routes
-app.get('/protected-route', verifyToken, (req, res, next) => {
+// Protected routes
+app.get('/api/protected-route', verifyToken, (req, res, next) => {
     console.log(req.user)
     return res.json({ message: "Hit protected route"})
 })
+
+// Main routes
+app.use('/api/tracks', tracksRouter)
+app.use('/api/auth', userRouter)
+
 
 // * Errors
 app.use(errorHandler) 

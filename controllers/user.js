@@ -4,6 +4,7 @@ import { InvalidData } from '../utilities/errorClasses.js'
 import { Unauthorized } from '../utilities/errorClasses.js'
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
+import { generateToken } from '../utilities/tokens.js'
 
 const router = express.Router()
 
@@ -18,17 +19,7 @@ router.post('/sign-up', async (req, res, next) => {
         const newUser = await User.create(req.body)
 
         // Token
-        const token = jwt.sign(
-            {
-                user: {
-                    _id: newUser._id,
-                    username: newUser.username
-                }
-            },
-            process.env.TOKEN_SECRET,
-            { expiresIn: '2d' } // expires in 2 days
-        )
-
+        const token = generateToken(newUser)
 
         // Response
         return res.status(201).json({ token: token })
@@ -65,16 +56,8 @@ router.post('/sign-in', async (req, res, next) => {
 
         // Generate the token: it has to be identical to sign up but with founder user this time 
 
-        const token = jwt.sign(
-            {
-                user: {
-                    _id: foundUser._id,
-                    username: foundUser.username
-                }
-            },
-            process.env.TOKEN_SECRET,
-            { expiresIn: '2d' } // expires in 2 days
-        )
+        // Token
+        const token = generateToken(foundUser)
 
         // Response
         return res.status(201).json({ token: token }) // sends the token back to the client 
