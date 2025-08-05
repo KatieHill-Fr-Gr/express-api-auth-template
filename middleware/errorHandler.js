@@ -59,9 +59,8 @@ const errorHandler = (err, req, res, next) => {
 
     // Unauthorized
     if (err.name === 'Unauthorized') {
-        return res.status(401).json('Unauthorized access')
+        return res.status(401).json({ message: err.message })
     }
-
 
 
     // Malformed ObjectId (req.params)

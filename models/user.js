@@ -18,12 +18,12 @@ const userSchema = new mongoose.Schema({
     { type: String, 
     required: ['Please choose a password', true], 
     unique: true
-    }
+    },
 })
 
 // Hash the password before saving a new user
 
-userSchema.pre('save', function() {
+userSchema.pre('save', function(next) { // Remember to add next to params here
     if (this.isModified('password')) { 
     this.password = bcrypt.hashSync(this.password, 12) // The salt is the last value
     }
