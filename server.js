@@ -8,7 +8,6 @@ import verifyToken from './middleware/verifyToken.js'
 
 // * Routers
 
-import { tracksRouter } from './controllers/tracks.js'
 import { userRouter } from './controllers/user.js'
 
 
@@ -30,7 +29,6 @@ app.get('/api/protected-route', verifyToken, (req, res, next) => {
 })
 
 // Main routes
-app.use('/api/tracks', tracksRouter)
 app.use('/api/auth', userRouter)
 
 
